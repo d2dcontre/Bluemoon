@@ -14,7 +14,9 @@ POST	/items/id/:id/name/:name/supplier/:supplier/num/:num/add	controllers.Applic
 GET 	/items/id/:id/add/:num/restock								controllers.Application.restock(id, num:Int)
 POST 	/items/id/:id/add/:num/restock								controllers.Application.restock(id, num:Int)
 
-#A
+#Add transaction
+GET		/trans/item/:item/user/:user/no/:num/buy					controllers.Application.purchase(item,user,num:Int)
+POST 	/trans/item/:item/user/:user/no/:num/buy					controllers.Application.purchase(item,user,num:Int)
 
 #Retrieve transactions
 GET		/trans/all													controllers.Application.getTrans()
