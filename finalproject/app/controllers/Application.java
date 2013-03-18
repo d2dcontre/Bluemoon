@@ -78,6 +78,9 @@ public class Application extends Controller
 		
 		Collection<JsonNode> c = on;
 		fin.putArray("items").addAll(c);
+		
+		s.close();
+		
 		return ok(fin.toString());
 	}
 	
@@ -104,6 +107,9 @@ public class Application extends Controller
 	
 		sql = "INSERT INTO Item(item_id,item_name,number_items,supplier) values ('" + id + "', '" + name + "', " + num + ", '" + supplier + "')";
 		s.executeUpdate(sql);
+		
+		s.close();
+		rs.close();
 		
 		return printMssg(name + " successfully added! ");
 	}
@@ -146,6 +152,7 @@ public class Application extends Controller
 		finally 
 		{
 			rs.close();
+			s.close();
 		}
 		
 		return printMssg(id + " successfully restocked! Has now " + tempNum + " items.");
@@ -204,6 +211,7 @@ public class Application extends Controller
 			
 			//Collection<JsonNode> c = on;
 			rs.close();
+			s.close();
 			
 			fin.putArray("transactions").addAll(on);
 			return ok(fin.toString() );
