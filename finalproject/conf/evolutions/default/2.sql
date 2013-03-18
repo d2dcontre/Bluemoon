@@ -14,6 +14,10 @@ INSERT INTO User_Entity(user_id,first_name,last_name,address) values ('000001', 
 INSERT INTO User_Entity(user_id,first_name,last_name,address) values ('000002', 'Steve', 'McGarrett', 'Hawaii');
 INSERT INTO User_Entity(user_id,first_name,last_name,address) values ('000003', 'Spencer', 'Reid', 'Las Vegas');
 
+INSERT INTO Transaction(user_id,item_id,noPurch,trans_date) values ('103168','11111',200,'2013-03-18');
+INSERT INTO Transaction(user_id,item_id,noPurch,trans_date) values ('109090','22222',200,'2013-03-18');
+INSERT INTO Transaction(user_id,item_id,noPurch,trans_date) values ('000001','33333',200,'2013-03-18');
+
 #--- !Downs
 DELETE FROM Item;
 DELETE FROM User_Entity;

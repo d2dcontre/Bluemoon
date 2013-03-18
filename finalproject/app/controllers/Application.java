@@ -164,5 +164,29 @@ public class Application extends Controller
 		return false;
 	}
 
-	
+	public static Result getTrans() {
+		try {
+			DataSource ds = DB.getDataSource();
+			Statement s = ds.getConnection().createStatement();
+			String sql = "SELECT * FROM Transaction";
+			ResultSet rs = s.executeQuery(sql);
+			
+			ArrayList<JsonNode> on = new ArrayList<JsonNode>();
+			ObjectNode fin = Json.newObject();
+			doJson(rs,on);
+			
+			Collection<JsonNode> c = on;
+			fin.putArray("transactions").addAll(c);
+			return ok(fin.toString() );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			String s = e.getStackTrace().toString();
+			ObjectNode o = Json.newObject();
+			o.put("status", "error");
+			o.put("message", e.getMessage() );
+			
+			return internalServerError(o);
+		}
+	}
 }

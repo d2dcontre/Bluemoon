@@ -15,6 +15,14 @@ CREATE TABLE User_Entity (
 	PRIMARY KEY (user_id))
 ;
 
+CREATE TABLE Transaction (
+	user_id 			varchar(255),
+	item_id				varchar(255),
+	noPurch				int,
+	trans_date			DATE,
+	PRIMARY KEY (user_id,item_id))
+;
+
 #--- !Downs
 DROP TABLE Item;
 DROP TABLE User_Entity;
