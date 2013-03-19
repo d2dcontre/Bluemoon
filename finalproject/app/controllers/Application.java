@@ -202,7 +202,7 @@ public class Application extends Controller
 				noPurch = rs.getInt(4);
 				date = rs.getDate(5);
 				
-				System.out.println("trans:"+trans);
+				//System.out.println("trans:"+trans);
 				
 				o.put("trans_id", trans);
 				o.put("user_id", user);
@@ -293,6 +293,71 @@ public class Application extends Controller
 			rs.close();
 			
 			return printMssg(item + " successfully purchased by " + user + "! ");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			String s = e.getStackTrace().toString();
+			ObjectNode o = Json.newObject();
+			o.put("status", "error");
+			o.put("message", e.getMessage() );
+			
+			return internalServerError(o);
+		}
+	}
+	
+	public static Result getTransResolve() {
+		try {
+			DataSource ds = DB.getDataSource();
+			Statement s = ds.getConnection().createStatement();
+			Statement s2 = ds.getConnection().createStatement();
+			String sql = "SELECT * FROM Transaction";
+			ResultSet rs = s.executeQuery(sql);
+			ResultSet rs2 = null;
+			
+			Collection<JsonNode> on = new ArrayList<JsonNode>();
+			ObjectNode fin = Json.newObject();
+			//doJson(rs,on);
+			String user,item,userN,itemN = "";
+			int noPurch,trans = 0;
+			Date date;
+			
+			while(rs.next() ) {
+				ObjectNode o = Json.newObject();
+				
+				trans = rs.getInt(1);
+				user = rs.getString(2);
+				item = rs.getString(3);
+				noPurch = rs.getInt(4);
+				date = rs.getDate(5);
+				
+				//System.out.println("trans:"+trans);
+				rs2 = s2.executeQuery("SELECT first_name, last_name FROM User_Entity WHERE user_id = '" + user + "'");
+				rs2.next();
+				userN = rs2.getString(1) + " " + rs2.getString(2);
+				
+				rs2 = s2.executeQuery("SELECT item_name FROM Item WHERE item_id = '" + item + "'");
+				rs2.next();
+				itemN = rs2.getString(1);
+				
+				o.put("trans_id", trans);
+				o.put("user_id", user);
+				o.put("user_name", userN);
+				o.put("item_id", item);
+				o.put("item_name", itemN);
+				o.put("noPurch", noPurch);
+				o.put("trans_date", date.toString() );
+				
+				on.add(o);
+			}
+			
+			//Collection<JsonNode> c = on;
+			rs.close();
+			s.close();
+			rs2.close();
+			s.close();
+			
+			fin.putArray("transactions").addAll(on);
+			return ok(fin.toString() );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
