@@ -190,17 +190,21 @@ public class Application extends Controller
 			ObjectNode fin = Json.newObject();
 			//doJson(rs,on);
 			String user,item = "";
-			int noPurch = 0;
+			int noPurch,trans = 0;
 			Date date;
 			
 			while(rs.next() ) {
 				ObjectNode o = Json.newObject();
 				
-				user = rs.getString(1);
-				item = rs.getString(2);
-				noPurch = rs.getInt(3);
-				date = rs.getDate(4);
+				trans = rs.getInt(1);
+				user = rs.getString(2);
+				item = rs.getString(3);
+				noPurch = rs.getInt(4);
+				date = rs.getDate(5);
 				
+				System.out.println("trans:"+trans);
+				
+				o.put("trans_id", trans);
 				o.put("user_id", user);
 				o.put("item_id", item);
 				o.put("noPurch", noPurch);

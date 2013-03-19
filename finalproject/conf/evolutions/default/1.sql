@@ -16,13 +16,15 @@ CREATE TABLE User_Entity (
 ;
 
 CREATE TABLE Transaction (
+	trans_id			int AUTO_INCREMENT,
 	user_id 			varchar(255),
 	item_id				varchar(255),
 	noPurch				int,
 	trans_date			DATE,
-	PRIMARY KEY (user_id,item_id))
+	PRIMARY KEY (trans_id))
 ;
 
 #--- !Downs
 DROP TABLE Item;
 DROP TABLE User_Entity;
+DROP TABLE Transaction;
