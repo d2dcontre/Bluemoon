@@ -32,7 +32,7 @@ public class Application extends Controller
 		JsonNode json = request().body().asJson();
 		ObjectNode result = Json.newObject();
 		result.put("message", error);
-		return ok(result.toString());
+		return ok(result);
 	}
 	
 	public static void doJson( ResultSet rs, ArrayList<JsonNode> on) throws SQLException
@@ -81,7 +81,7 @@ public class Application extends Controller
 		
 		s.close();
 		
-		return ok(fin.toString());
+		return ok(fin);
 	}
 	
 	public static Result addItem(String id, String name, String supplier, int num) throws SQLException
@@ -218,7 +218,7 @@ public class Application extends Controller
 			s.close();
 			
 			fin.putArray("transactions").addAll(on);
-			return ok(fin.toString() );
+			return ok(fin);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -357,7 +357,7 @@ public class Application extends Controller
 			s.close();
 			
 			fin.putArray("transactions").addAll(on);
-			return ok(fin.toString() );
+			return ok(fin);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -368,5 +368,11 @@ public class Application extends Controller
 			
 			return internalServerError(o);
 		}
+	}
+	
+	public static Result getTest() {
+		ObjectNode o = Json.newObject();
+		o.put("file","check");
+		return ok(o);
 	}
 }

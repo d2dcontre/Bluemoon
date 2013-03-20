@@ -22,5 +22,8 @@ POST 	/trans/item/:item/user/:user/no/:num/buy					controllers.Application.purch
 GET		/trans/all													controllers.Application.getTrans()
 GET		/trans/all/resolve											controllers.Application.getTransResolve()
 
+#Retrieve one for test
+GET		/test														controllers.Application.getTest()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               							controllers.Assets.at(path="/public", file)

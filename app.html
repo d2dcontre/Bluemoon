@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="./jquery.js"
+				type="text/javascript">
+		</script>
+		<script>
+			//var data = "x";
+			// Render in application
+			function doStuff(data) {
+				alert("heyo");
+				var service_name = "http://127.0.0.1:9000/trans/all";
+				if(!data)
+					alert(data);
+				$.each(data.transactions, function(i,obj) {
+					alert("heyo2");
+					$("#content").append(obj["trans_id"] );
+				});
+			}
+			
+			$(document).ready(function() {
+				var service_name = "http://127.0.0.1:9000/items/getAllItems";
+				//var service_name = "http://127.0.0.1:9000/test";
+				//var service_name = "file:///C:/Java/Play%20Apps/soa/Bluemoon/test.json";
+				var ini;
+				$.getJSON(service_name,function(ini) {
+					//alert(ini);
+					$("#content").append("<b>From items:<b> <br>");
+					$.each(ini.items, function(i,obj) {
+						$("#content").append(obj["name"] + "<br>" );
+					});
+				});
+				
+				var service_name2 = "http://127.0.0.1:9000/trans/all";
+				//var service_name2 = "file:///C:/Java/Play%20Apps/soa/Bluemoon/test2.json";
+				var ini2;
+				$.getJSON(service_name2, function(ini2) {
+					$("#trans").append("<b>From transactions:<b> <br>");
+					$.each(ini2.transactions, function(i,obj) {
+						$("#trans").append(obj["trans_id"] + "<br>" );
+					});
+				});
+				//$.getJSON(service_name, /*alert(data)*/ doStuff(ini) /*alert("hello") );*//*function(data) {
+					//$.each(data.items, function(i,obj) {
+						//$("#content").append(obj["name"] );
+					//});
+				//}*/);
+			});
+		</script>
+	</head>
+	<body>
+		<div 
+			id="Title">
+			<h1>Avackan Marketing</h1>
+		</div>
+		<div
+			id="content">
+		</div>
+		<div
+			id="trans">
+		</div>
+	</body>
+</html>
