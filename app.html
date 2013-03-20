@@ -59,5 +59,14 @@
 		<div
 			id="trans">
 		</div>
+		<div id="note">
+			If you test the code above using local json files (use the file:///C:/Java.... format for both), you'll see that it works properly.<br>
+			The issue seems to lie with the way Play! returns its created JSON files.  <br>
+			The Play! Framework definitely returns a JSON--as Firefox has attested to--but for some reason,<br>
+			JQuery is not able to retrieve it and place it in the ini* variables.  Instead it fails quietly and still proceeds to run the callback.<br>
+			<br>
+			NOTE: Right-clicking in firefox and clicking page info (when accessing Play! the regular way using just a browser and URLS)<br>
+			says that a JSON was retrieved and it contains info (600+ length of data)
+		</div>
 	</body>
 </html>
